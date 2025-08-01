@@ -63,7 +63,7 @@ export default function Home() {
   />
 
       <h1 className="text-4xl font-bold">ChainCV</h1>
-      <p className="mt-2 text-lg text-white">Your On-Chain Web3 Resume, Instantly.&apos;</p>
+      <p className="mt-2 text-lg text-white">Your On-Chain Web3 Resume, Instantly</p>
       <p className="mt-2 text-sm text-white">Powered by LaborDAO</p>
       
       <div className="mt-8 flex w-full max-w-md items-center space-x-2">
