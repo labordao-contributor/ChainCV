@@ -14,8 +14,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'ENS name not found' }, { status: 404 });
     }
     return NextResponse.json({ address: data.address });
-  } catch (error: any) {
-    console.error("ENS RESOLUTION ERROR:", error.message);
+  } catch (error) {
+    let errorMessage = "An unknown error occurred";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    console.error("ENS RESOLUTION ERROR:", errorMessage);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

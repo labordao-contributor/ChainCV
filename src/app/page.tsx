@@ -1,8 +1,5 @@
-'use client'; 
-
+'use client';
 import { useState } from 'react';
-
-import Image from 'next/image';
 
 type Vote = { id: string; proposal: { title: string; }; space: { id: string; }; };
 
@@ -31,7 +28,8 @@ export default function Home() {
         const data = await response.json();
         if (data.error) throw new Error(data.error);
         addressToSearch = data.address;
-      } catch (err: any) {
+      } catch (err) {
+        console.error('Failed to resolve ENS name:', err);
         setError('Could not find that ENS name. Please check the spelling.');
         setIsLoading(false);
         return;
@@ -45,6 +43,7 @@ export default function Home() {
       const { data } = await response.json();
       setVotes(data?.votes || []);
     } catch (err) {
+      console.error('Failed to fetch governance data:', err);
       setError('Failed to fetch governance data.');
     } finally {
       setIsLoading(false);
@@ -53,23 +52,12 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
-      
-      <Image 
-    src="/chaincv-logo.png"
-    alt="ChainCV Logo"
-    width={300}
-    height={300}
-    className="mb-0"
-  />
-
       <h1 className="text-4xl font-bold">ChainCV</h1>
-      <p className="mt-2 text-lg text-white">Your On-Chain Web3 Resume, Instantly</p>
-      <p className="mt-2 text-sm text-white">Powered by LaborDAO</p>
-      
+      <p className="mt-2 text-lg text-gray-600">Your On-Chain Resume, Instantly.</p>
       <div className="mt-8 flex w-full max-w-md items-center space-x-2">
         <input
           type="text"
-          placeholder="Enter a wallet address..."
+          placeholder="Enter ENS name or wallet address..."
           className="flex-grow rounded-md border border-gray-300 px-4 py-2"
           value={walletAddress}
           onChange={(e) => setWalletAddress(e.target.value)}
@@ -94,9 +82,9 @@ export default function Home() {
             <h2 className="text-2xl font-bold">Recent Governance Votes</h2>
             <ul className="mt-4 space-y-2">
               {votes.map((vote) => (
-                <li key={vote.id} className="rounded-md border text-white p-3">
+                <li key={vote.id} className="rounded-md border bg-gray-50 p-3">
                   <p className="font-semibold">{vote.proposal.title}</p>
-                  <p className="text-sm text-black-600">In DAO: {vote.space.id}</p>
+                  <p className="text-sm text-gray-500">In DAO: {vote.space.id}</p>
                 </li>
               ))}
             </ul>
