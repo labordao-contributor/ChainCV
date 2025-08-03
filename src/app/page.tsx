@@ -81,9 +81,9 @@ export default function Home() {
             <h2 className="text-2xl font-bold">Recent Governance Votes</h2>
             <ul className="mt-4 space-y-2">
               {votes.map((vote) => (
-                <li key={vote.id} className="rounded-md border bg-gray-50 p-3">
+                <li key={vote.id} className="rounded-md border bg-black p-3">
                   <p className="font-semibold">{vote.proposal.title}</p>
-                  <p className="text-sm text-gray-800">In DAO: {vote.space.id}</p>
+                  <p className="text-sm text-white-800">In DAO: {vote.space.id}</p>
                 </li>
               ))}
             </ul>
